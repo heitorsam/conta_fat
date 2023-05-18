@@ -1,0 +1,24 @@
+CREATE USER conta_fat IDENTIFIED BY n_liberam_youtube_pq_n_querem;
+
+GRANT CREATE SESSION TO conta_fat;
+GRANT CREATE PROCEDURE TO conta_fat;
+GRANT CREATE TABLE TO conta_fat;
+GRANT CREATE VIEW TO conta_fat;
+GRANT UNLIMITED TABLESPACE TO conta_fat;
+GRANT CREATE SEQUENCE TO conta_fat;
+
+GRANT SELECT ON portal_projetos.SEQ_CD_ACESSO TO conta_fat;
+GRANT INSERT ON portal_projetos.ACESSO TO conta_fat;
+
+GRANT EXECUTE ON dbasgu.FNC_MV2000_HMVPEP TO conta_fat;
+
+GRANT SELECT ON dbasgu.USUARIOS TO conta_fat;
+GRANT SELECT ON dbasgu.PAPEL_USUARIOS TO conta_fat;
+
+GRANT SELECT ON dbamv.ATENDIME TO conta_fat;
+GRANT SELECT ON dbamv.REG_FAT TO conta_fat;
+GRANT SELECT ON dbamv.ITREG_FAT TO conta_fat;
+GRANT SELECT ON dbamv.PROTOCOLOS TO conta_fat;
+GRANT SELECT ON dbamv.IT_SAME_PROTOCOLOS TO conta_fat;
+GRANT SELECT ON dbamv.SAME TO conta_fat;
+
