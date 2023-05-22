@@ -18,20 +18,20 @@
 		
 		echo $usuario;	echo '</br>'; echo $senha; echo '</br>';
 		
-		$result_usuario = oci_parse($conn_ora, "SELECT inspecao_sesmt.VALIDA_SENHA_FUNC_LOGIN(:usuario,:senha) AS RESP_LOGIN,
+		$result_usuario = oci_parse($conn_ora, "SELECT conta_fat.VALIDA_SENHA_FUNC_LOGIN(:usuario,:senha) AS RESP_LOGIN,
 												(SELECT INITCAP(usu.NM_USUARIO)
 													FROM dbasgu.USUARIOS usu
 													WHERE usu.CD_USUARIO = :usuario) AS NM_USUARIO,													
 													CASE
 														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
 																			FROM dbasgu.PAPEL_USUARIOS puia
-																			WHERE puia.CD_PAPEL = 452) THEN 'S' --PAPEL GERAL
+																			WHERE puia.CD_PAPEL = 463) THEN 'S' --PAPEL GERAL
 													END SN_USUARIO,
 
 													CASE
 														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
 																			FROM dbasgu.PAPEL_USUARIOS puia
-																			WHERE puia.CD_PAPEL = 453) THEN 'S' --PAPEL ADM
+																			WHERE puia.CD_PAPEL = 464) THEN 'S' --PAPEL_FATURAMENTO
 													END SN_USUARIO_ADM
 
 												FROM DUAL");																															
@@ -53,8 +53,8 @@
 
 				$cons_acesso_login="INSERT INTO portal_projetos.ACESSO
 				SELECT portal_projetos.SEQ_CD_ACESSO.NEXTVAL AS CD_ACESSO,
-				40 AS CD_PORTFOLIO,
-				'INSPECAO SESMT' AS DS_PROJETO,
+				41 AS CD_PORTFOLIO,
+				'CONTA FAT' AS DS_PROJETO,
 				'$usuario' AS CD_USUARIO_ACESSO,
 				SYSDATE AS HR_ACESSO
 				FROM DUAL";
@@ -68,27 +68,27 @@
 					$_SESSION['usuarioLogin'] = $usuario;
 					$_SESSION['usuarioNome'] = $resultado[1];
 					$_SESSION['SN_USUARIO'] = $resultado[2];
-					$_SESSION['SN_USUARIO_ADM'] = $resultado[3];
+					$_SESSION['SN_USUARIO_ADM_FATURAMENTO'] = $resultado[3];
 
 					header("Location: $pag_apos");
 
 				}
 
 			} else { 
+
 				$_SESSION['msgerro'] = $resultado[0] . '!';
-				header("Location: $pag_login");		
+				header("Location: $pag_login");
+				
 			}
 		//Não foi encontrado um usuario na tabela usuário com os mesmos dados digitado no formulário
 		//redireciona o usuario para a página de login
 		}else{	
+
 			//Váriavel global recebendo a mensagem de erro
 			$_SESSION['msgerro'] = "Ocorreu um erro!";
 			header("Location: $pag_login");
+
 		}
 		
 	}
 ?>
-
-<!--LISTA DE PAPEIS -->
-
-<!--PAPEL PORTAL CUSTOS : 429-->

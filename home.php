@@ -17,55 +17,65 @@
         include 'js/mensagens_usuario.php';
     ?>
 
-    <h11 style="margin-left: 10px;"><i class="fa-solid fa-magnifying-glass efeito-zoom" aria-hidden="true"></i> Inspeção Sesmt</h11>
+    <h11 style="margin-left: 10px;"><i class="fa-regular fa-clipboard efeito-zoom"></i> Conta Fat</h11>
     <div class="div_br"> </div>
 
-    <a href="inspecao.php" class="botao_home" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Inspeção</a>
+    <div class="row">
+
+        <div class="col-6 col-md-3" style="text-align: left; padding: 0px; background-color: rgba(1,1,1,0) !important;"> 
+            Alta Início:
+            <input id="dt_ini" onchange="ajax_carrega_painel_geral()" type="date" class="form-control">
+        </div>
+
+        <div class="col-6 col-md-3" style="text-align: left; padding: 0px; padding-left: 20px; background-color: rgba(1,1,1,0) !important;"> 
+            Alta Fim:
+            <input id="dt_fin" onchange="ajax_carrega_painel_geral()" type="date" class="form-control">
+        </div>
+
+    </div>
+
+
+    <div id="div_painel_geral"></div>
+
+
+    <!--
+    <a href="inspecao.php" class="botao_home" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Geral</a>
     <span class="espaco_pequeno"></span>
 
-    <a href="realizados.php" class="botao_home" type="submit"><i class="fa-regular fa-square-check"></i> Realizados</a>
-    <span class="espaco_pequeno"></span>
 
-    <?php if($_SESSION['SN_USUARIO_ADM'] == 'S'){ ?>
+    <?php //if($_SESSION['SN_USUARIO_ADM_FATURAMENTO'] == 'S'){ ?>
 
-        <a href="ficha.php" class="botao_home_adm" type="submit"><i class="fa-regular fa-clipboard"></i> Ficha</a>
+        <a href="ficha.php" class="botao_home_adm" type="submit"><i class="fa-regular fa-clipboard"></i> Faturamento</a>
         <span class="espaco_pequeno"></span>
-
-        <a href="local.php" class="botao_home_adm" type="submit"><i class="fa-solid fa-location-dot"></i> Local</a>
-        <span class="espaco_pequeno"></span> 
         
-    <?php } ?>
+    <?php //} ?>
     
-    <div class="div_br"> </div>
-    <div id="dashboard_home"> </div>    
+
+    -->
     
 
 <script defer>
 
     window.onload = function(){
 
-        ajax_lista_local();
+        var data_ontem = new Date();
+        data_ontem.setDate(data_ontem.getDate() -1);
+
+        document.getElementById('dt_ini').valueAsDate = data_ontem;
+        document.getElementById('dt_fin').valueAsDate = data_ontem;
+
+        ajax_carrega_painel_geral();
 
     }
 
-    function ajax_lista_local(){
+    function ajax_carrega_painel_geral(){
 
-        $('#dashboard_home').load('funcoes/ajax_exibe_dashboard_home.php');
+        var js_dt_ini = document.getElementById('dt_ini').value;
+        var js_dt_fin = document.getElementById('dt_fin').value;
 
-    }
-
-    function ajax_direciona_realizados(js_inspecao,js_ficha_inspecao){
-
-        window.location = "realizados.php?get_inspecao="+js_inspecao+"&get_ficha_inspecao="+js_ficha_inspecao;
+        $('#div_painel_geral').load('funcoes/painel/ajax_painel_geral.php?dtini='+js_dt_ini+'&dtfin='+js_dt_fin);
 
     }
-
-    function ajax_direciona_inspecao(){
-
-        window.location = "inspecao.php";
-
-    }
-
 
 </script>
 
