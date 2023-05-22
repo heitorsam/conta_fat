@@ -1271,4 +1271,27 @@ tbody{
 }
 
 
+/*PAINEL GERAL*/
+
+.bloco_painel{
+    
+    width: 98%; 
+    margin: 0 auto; 
+    border: solid 2px #46a5d4; 
+    border-radius: 5px; 
+    min-height: 300px;
+
+}
+
+.titulo_painel{
+
+    font-weight: bold;
+    color: white;
+    width: 100%;
+    padding: 5px 0px 5px 0px;
+    background-color: #46a5d4;
+
+}
+
+
 </style>
