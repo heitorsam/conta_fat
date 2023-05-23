@@ -13,21 +13,9 @@
 
     echo '<div class="row">';
 
-        echo '<div class="col-2" style="padding: 0px;">';
+        echo '<div class="col-2" style="padding: 0px !important; margin: 0px; !important">';
 
-        include 'bloco_37_secretaria.php';
-
-        echo '</div>';
-
-        echo '<div class="col-2" style="padding: 0px;">';
-
-        include 'bloco_37_secretaria.php';
-
-        echo '</div>';
-
-        echo '<div class="col-2" style="padding: 0px;">';
-
-        include 'bloco_37_secretaria.php';
+            include 'bloco_37_secretaria.php';
 
         echo '</div>';
 

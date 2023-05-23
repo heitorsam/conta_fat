@@ -1285,13 +1285,87 @@ tbody{
 
 .titulo_painel{
 
+    font-size: 14px;
     font-weight: bold;
     color: white;
     width: 100%;
     padding: 5px 0px 5px 0px;
     background-color: #46a5d4;
+    height: 33px;
+    margin-bottom: 8px;
 
 }
 
+.itens_painel_comum{
+
+    margin: 0 auto;
+    width: 96%;
+    background-color: #ffffff !important;
+    border-radius: 5px 5px 5px 5px;
+    border: solid 1px #46a5d4;
+    padding: 3px;
+    font-size: 13px;
+    margin-top: 4px;
+    height: 30px;    
+
+}
+
+.itens_painel_comum:hover {
+
+    background-color: rgba(70,165,212,0.2) !important;
+    cursor: pointer;
+
+}
+
+.mini_caixa_painel{
+
+    font-size: 12px;
+    background-color: #ffffff;
+    margin-left: 2px; 
+    border: solid 1px #dadada; 
+    width: max-content; 
+    border-radius: 3px;
+    padding: 1px 6px 1px 6px; float: left;
+
+}
+
+.numerocomcirculo {
+
+  color: white;
+  border: solid 2px white;
+
+  display: inline-block;
+  line-height: 0px;
+  border-radius: 50%;
+  font-size: 9px;
+
+}
+
+.numerocomcirculo span {
+  display: inline-block;
+  padding-top: 50%;
+  padding-bottom: 50%;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.divciruculo{
+
+    width: 20%; 
+    text-align: center; 
+    position: relative; 
+    float: right; 
+    bottom: 20px;
+
+}
+
+.divtitulo{
+
+    width: 100%; 
+    text-align: center; 
+    position: relative; 
+    float: left;
+
+}
 
 </style>
