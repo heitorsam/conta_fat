@@ -5,7 +5,7 @@
     </main>
 
     <!--RODAPE -->
-    <footer class="footer-bs">
+    <footer id="id_rodape" class="footer-bs">
         <div class="row">
         	<div class="col-md-5 footer-brand animated fadeInLeft">
             
@@ -64,8 +64,49 @@
 
 <script>
 
- if(navigator.userAgent.match(/Android/i)){
-    window.scrollTo(0,1);
- }
+    function ajax_oculta_cabecalho_rodape(){
+
+        var navcabecalho = document.getElementById("id_cabecalho_topo");
+
+        if (navcabecalho.style.display === "none") {
+
+            navcabecalho.style.display = "block";
+
+        } else {
+
+            navcabecalho.style.display = "none";
+
+        }     
+
+        var divrodape = document.getElementById("id_rodape");
+
+        if (divrodape.style.display === "none") {
+
+            divrodape.style.display = "block";
+
+        } else {
+
+            divrodape.style.display = "none";
+
+        }  
+
+    }
+
+    document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        var isEscape = false;
+        if ("key" in evt) {
+            isEscape = (evt.key === "Escape" || evt.key === "Esc");
+        } else {
+            isEscape = (evt.keyCode === 27);
+        }
+        if (isEscape) {
+            ajax_oculta_cabecalho_rodape();
+        }
+    };
+
+    if(navigator.userAgent.match(/Android/i)){
+        window.scrollTo(0,1);
+    }
 
 </script>

@@ -51,6 +51,7 @@
 <body>
     <header>    
 
+    <div id="id_cabecalho_topo">
         <nav class="navbar navbar-expand-md navbar-dark bg-color">
             <a class="navbar-brand" href="home.php">
                 <img src="img/logo/icone_santa_casa_sjc_branco.png" height="28px" width="28px" class="d-inline-block align-top efeito-zoom" alt="Santa Casa de São José dos Campos">
@@ -67,10 +68,16 @@
                     <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
                 </li>
                 <div class="menu_azul_claro">
-                    <li class="nav-item">
-                        <h10><a class="nav-link" onclick="ajax_redireciona_easter_egg('1')"><i class="fa-regular fa-circle-question efeito-zoom" aria-hidden="true"></i> Faq</a></h10>
+                    <li class="nav-item" style="cursor: pointer;">
+
+                        <h10> 
+                            <a style="float:left; padding: 16px 8px 16px 16px !important;" class="nav-link" onclick="ajax_oculta_cabecalho_rodape()"> <i class="fa-solid fa-expand efeito-zoom"></i></a>
+                            <a style="float:left; padding: 16px 16px 16px 8px !important;" class="nav-link" onclick="ajax_redireciona_easter_egg('1')"><i class="fa-regular fa-circle-question efeito-zoom" aria-hidden="true"></i> Faq</a>
+                        </h10>
+
                     </li>
-                </div>
+                </div>         
+                
                 <div class="menu_preto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="conta_click('2')">
@@ -105,6 +112,8 @@
                 </ul>
             </div>
         </nav>
+
+    </div>
 
     </header>
     <main>

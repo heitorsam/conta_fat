@@ -1281,6 +1281,7 @@ tbody{
     border-radius: 5px; 
     min-height: 300px;
     padding-bottom: 8px;
+    background-color: white;
 
 }
 
