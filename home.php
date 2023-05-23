@@ -1,5 +1,5 @@
 <!--ATUALIZA A PAGINA (SEGUNDOS)-->
-<meta http-equiv="refresh" content="60">
+<meta http-equiv="refresh" content="120">
 
 <?php 
     //CABECALHO

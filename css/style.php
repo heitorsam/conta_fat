@@ -1280,6 +1280,7 @@ tbody{
     border: solid 2px #46a5d4; 
     border-radius: 5px; 
     min-height: 300px;
+    padding-bottom: 8px;
 
 }
 
@@ -1306,7 +1307,7 @@ tbody{
     padding: 3px;
     font-size: 13px;
     margin-top: 4px;
-    height: 30px;    
+    /*height: 58px;*/
 
 }
 
@@ -1317,15 +1318,40 @@ tbody{
 
 }
 
+.itens_painel_alerta{
+
+    margin: 0 auto;
+    width: 96%;
+    background-color: #ffffff !important;
+    border-radius: 5px 5px 5px 5px;
+    border: solid 1px #ff834c;
+    padding: 3px;
+    font-size: 13px;
+    margin-top: 4px;
+    /*height: 58px;*/
+
+}
+
+.itens_painel_alerta:hover {
+
+    background-color: rgba(255,131,76,0.2) !important;
+    cursor: pointer;
+
+}
+
 .mini_caixa_painel{
 
     font-size: 12px;
     background-color: #ffffff;
     margin-left: 2px; 
     border: solid 1px #dadada; 
-    width: max-content; 
     border-radius: 3px;
-    padding: 1px 6px 1px 6px; float: left;
+    padding: 1px 6px 1px 6px; 
+    float: left;
+    margin-top: 2px;
+    width: auto; 
+    word-wrap: break-word; 
+    text-align:left;
 
 }
 

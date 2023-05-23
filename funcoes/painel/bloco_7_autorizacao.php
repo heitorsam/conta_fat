@@ -5,7 +5,7 @@
     $cons_total = "SELECT LPAD(NVL(COUNT(dc.CD_ATENDIMENTO),0),2,0) AS QTD_TOTAL
                    FROM conta_fat.VDIC_DETALHE_CONTA_FAT dc
                    WHERE TO_CHAR(TO_DATE(dc.DT_ALTA,'DD/MM/YYYY'),'YYYY-MM-DD') BETWEEN '$var_dt_ini' AND '$var_dt_fin'
-                   AND dc.CD_PORTADOR_ATUAL = 37";
+                   AND dc.CD_PORTADOR_ATUAL = 7";
 
     $res_total = oci_parse($conn_ora,$cons_total);
 
@@ -20,7 +20,7 @@
     $cons_detalhe = "SELECT dc.*
                      FROM conta_fat.VDIC_DETALHE_CONTA_FAT dc
                      WHERE TO_CHAR(TO_DATE(dc.DT_ALTA,'DD/MM/YYYY'),'YYYY-MM-DD') BETWEEN '$var_dt_ini' AND '$var_dt_fin'
-                     AND dc.CD_PORTADOR_ATUAL = 37
+                     AND dc.CD_PORTADOR_ATUAL = 7
                      ORDER BY dc.DT_ALTA ASC";
 
     $res_detalhe = oci_parse($conn_ora,$cons_detalhe);
@@ -29,11 +29,11 @@
 
     echo '<div class="bloco_painel">';
 
-        echo '<div class="titulo_painel">';
+        echo '<div class="titulo_painel" >';
 
             echo '<div class="divtitulo">';
 
-                echo 'Secretária';
+                echo 'Autorização';
 
             echo '</div>';
 
@@ -64,7 +64,7 @@
                 echo '<div class="mini_caixa_painel">' . $row_det['DS_UNID_INT'] . '</div>';
                 echo '<div style="clear: both;"></div>';
 
-            echo '</div>';   
+            echo '</div>'; 
         
         }
 
