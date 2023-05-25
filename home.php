@@ -139,6 +139,31 @@
   
     }
 
+    ///////////////
+    //DRAG E DROP//
+    ///////////////
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+
+    function drag(ev) {
+        //alert(ev);
+        ev.dataTransfer.setData("drag_id_objeto", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var js_drag_id_objeto = ev.dataTransfer.getData("drag_id_objeto");
+        //esse comentario deixa o objeto na nova caixa
+        //ev.target.appendChild(document.getElementById(js_drag_id_objeto));
+        //alert('aqui abre model com o id ' + js_drag_id_objeto);
+        alert('arrastou! a div ' + js_drag_id_objeto);
+
+    }
+
+
 </script>
 
 <?php

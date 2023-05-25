@@ -40,6 +40,13 @@
         echo '</div>';
 
 
+        echo '<div class="col-2" style="padding: 0px !important; margin: 0px !important; background-color: rgba(1,1,1,0) !important;">';
+
+            include 'bloco_faturista.php';
+
+        echo '</div>';
+
+
     echo '</div>';
 
 ?>

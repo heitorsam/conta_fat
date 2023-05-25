@@ -57,9 +57,16 @@
 
             }
 
-            echo '<div class="' .$var_tp_itens_painel . '">';
+            echo '<div id="' . $row_det['CD_PROTOCOLO'] . '"';
 
-                echo '<div class="mini_caixa_painel" style="word-wrap: break-word !important;">' . $row_det['CD_ATENDIMENTO'] . '</div>';  
+            ?>
+
+            ondragstart="drag(event)" draggable="true"
+            
+            <?php
+            echo 'class="' .$var_tp_itens_painel . '">';
+
+                echo '<div ondragover="allowDrop(event)"  class="mini_caixa_painel" style="word-wrap: break-word !important;">' . $row_det['CD_ATENDIMENTO'] . '</div>';  
                 if($var_ck_dt_alta == 'true'){ echo '<div class="mini_caixa_painel">' . $row_det['DT_ALTA'] . '</div>'; }
                 if($var_ck_paciente == 'true'){ echo '<div class="mini_caixa_painel">' . $row_det['NM_PACIENTE'] . '</div>'; }
                 if($var_ck_convenio == 'true'){ echo '<div class="mini_caixa_painel">' . $row_det['NM_CONVENIO'] . '</div>'; }
