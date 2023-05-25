@@ -9,6 +9,7 @@
     $var_ck_dt_alta = $_GET['ckdtalta'];
     $var_ck_unid_int = $_GET['ckunidint'];
     $var_ck_paciente = $_GET['ckpaciente'];
+    $var_ck_convenio = $_GET['ckconvenio'];
 
     //echo '</br>Dt Inicio: ' . $var_dt_ini . ' | Dt Fim: '. $var_dt_fin;
 

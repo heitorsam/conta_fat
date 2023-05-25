@@ -38,6 +38,7 @@
     
         <input id="ck_dt_alta" onchange="ajax_carrega_painel_geral()" type="checkbox"> <label>Alta</label>
         <input id="ck_paciente" onchange="ajax_carrega_painel_geral()" type="checkbox" style="margin-left: 5px;"> <label>Paciente</label>
+        <input id="ck_convenio" onchange="ajax_carrega_painel_geral()" type="checkbox" style="margin-left: 5px;"> <label>Convênio</label>
         <input id="ck_unid_int" onchange="ajax_carrega_painel_geral()" type="checkbox" style="margin-left: 5px;"> <label>Unidade Internação</label>
 
     
@@ -74,7 +75,8 @@
         var js_ss_dt_fin = sessionStorage.getItem("sessao_dt_fin"); 
         var js_ss_ck_dt_alta = sessionStorage.getItem("sessao_ck_dt_alta");
         var js_ss_ck_unid_int = sessionStorage.getItem("sessao_ck_unid_int"); 
-        var js_ss_ck_paciente = sessionStorage.getItem("sessao_ck_paciente");           
+        var js_ss_ck_paciente = sessionStorage.getItem("sessao_ck_paciente");   
+        var js_ss_ck_convenio = sessionStorage.getItem("sessao_ck_convenio");           
 
         if(js_ss_dt_ini == null || js_ss_dt_ini == ''){
 
@@ -88,6 +90,7 @@
             document.getElementById('ck_dt_alta').checked = true;
             document.getElementById('ck_unid_int').checked = true;
             document.getElementById('ck_paciente').checked = true;
+            document.getElementById('ck_convenio').checked = true;
             
 
         }else{
@@ -99,6 +102,8 @@
             if(js_ss_ck_dt_alta === 'true'){ document.getElementById('ck_dt_alta').checked = true; }else{ document.getElementById('ck_dt_alta').checked = false; }
             if(js_ss_ck_unid_int === 'true'){ document.getElementById('ck_unid_int').checked = true; }else{ document.getElementById('ck_unid_int').checked = false; }
             if(js_ss_ck_paciente === 'true'){ document.getElementById('ck_paciente').checked = true; }else{ document.getElementById('ck_paciente').checked = false; }
+            if(js_ss_ck_convenio === 'true'){ document.getElementById('ck_convenio').checked = true; }else{ document.getElementById('ck_convenio').checked = false; }
+        
         }
 
         ajax_carrega_painel_geral();
@@ -114,7 +119,8 @@
         var js_dt_fin = document.getElementById('dt_fin').value;
         var js_ck_dt_alta = document.getElementById('ck_dt_alta').checked; 
         var js_ck_unid_int = document.getElementById('ck_unid_int').checked;
-        var js_ck_paciente = document.getElementById('ck_paciente').checked;    
+        var js_ck_paciente = document.getElementById('ck_paciente').checked;
+        var js_ck_convenio = document.getElementById('ck_convenio').checked;     
 
         //DEFINE SESSOES
         sessionStorage.setItem("sessao_dt_ini",js_dt_ini); 
@@ -122,16 +128,15 @@
         sessionStorage.setItem("sessao_ck_dt_alta",js_ck_dt_alta); 
         sessionStorage.setItem("sessao_ck_unid_int",js_ck_unid_int);
         sessionStorage.setItem("sessao_ck_paciente",js_ck_paciente);
+        sessionStorage.setItem("sessao_ck_convenio",js_ck_convenio);
 
-        $('#div_painel_geral').load('funcoes/painel/ajax_painel_geral.php?dtini='+js_dt_ini+'&dtfin='+js_dt_fin+'&ckdtalta='+js_ck_dt_alta+'&ckunidint='+js_ck_unid_int+'&ckpaciente='+js_ck_paciente, function() {
+        $('#div_painel_geral').load('funcoes/painel/ajax_painel_geral.php?dtini='+js_dt_ini+'&dtfin='+js_dt_fin+'&ckdtalta='+js_ck_dt_alta+'&ckunidint='+js_ck_unid_int+'&ckpaciente='+js_ck_paciente+'&ckconvenio='+js_ck_convenio, function() {
             // definir o estilo CSS para ocultar o ícone após a conclusão da solicitação AJAX
             document.getElementById('carregando').style.display = 'none';
             document.getElementById('div_painel_geral').style.display = 'block';
 
         });    
-
-    
-
+  
     }
 
 </script>
