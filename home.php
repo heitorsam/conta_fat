@@ -159,7 +159,7 @@
         //esse comentario deixa o objeto na nova caixa
         //ev.target.appendChild(document.getElementById(js_drag_id_objeto));
         //alert('aqui abre model com o id ' + js_drag_id_objeto);
-        alert('arrastou! a div ' + js_drag_id_objeto);
+        alert('arrastou! o protocolo: ' + js_drag_id_objeto);
 
     }
 
