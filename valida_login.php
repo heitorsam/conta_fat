@@ -32,7 +32,7 @@
 														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
 																			FROM dbasgu.PAPEL_USUARIOS puia
 																			WHERE puia.CD_PAPEL = 464) THEN 'S' --PAPEL_FATURAMENTO
-													END SN_USUARIO_ADM
+													END SN_USUARIO_ADM_FATURAMENTO
 
 												FROM DUAL");																															
 												

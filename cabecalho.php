@@ -86,13 +86,13 @@
 
                         <!--MENU-->     
 
-                            <a class="dropdown-item" href="inspecao.php"><i class="fa-solid fa-magnifying-glass"></i> Inspeção</a>
-                            <a class="dropdown-item" href="realizados.php"><i class="fa-regular fa-square-check"></i> Realizados</a>
+                            <a class="dropdown-item" style="background-color: #f5f5f5;" href="javascript:void(0)"><i class="fa-solid fa-user"></i> Conta Fat</a> 
+                            <a class="dropdown-item" href="#"><i class="fa-solid fa-magnifying-glass"></i> ???</a>
 
-                            <?php if($_SESSION['SN_USUARIO_ADM'] == 'S'){ ?>
+                            <?php if($_SESSION['SN_USUARIO_ADM_FATURAMENTO'] == 'S'){ ?>
 
-                                <a class="dropdown-item" href="ficha.php"><i class="fa-regular fa-clipboard"></i> Ficha</a>
-                                <a class="dropdown-item" href="local.php"><i class="fa-solid fa-location-dot"></i> Local</a>
+                                <a class="dropdown-item" style="background-color: #f5f5f5;" href="javascript:void(0)"><i class="fa-solid fa-user-gear"></i> Administrador</a> 
+                                <a class="dropdown-item" href="faturista.php"><i class="fa-solid fa-clipboard-user"></i> Faturista</a>
 
                             <?php } ?>
 
