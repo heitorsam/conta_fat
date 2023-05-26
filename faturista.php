@@ -52,16 +52,32 @@
 
             if(js_nm_resumido !== null){
 
-            $('#div_cad_faturista').load('funcoes/usuario/ajax_exibe_cad_faturista.php?varcracha='+js_cracha);
+            $('#div_cad_faturista').load('funcoes/usuario/ajax_exibe_cad_faturista.php?varcracha='+js_cracha, function(){
+                
+                $("#div_simula_cores").append("<div class='mini_caixa_painel'>"+js_nm_resumido.value+"</div>");
+                console.log("Conteúdo adicionado à #div_simula_cores");
+
+            });
 
             }else{
 
                 $("#div_cad_faturista").empty();
+
             }
 
-        });
-     
+        });     
 
+    }
+
+    function ajax_atualiza_cores(){
+
+        $("#div_simula_cores").empty();
+
+        var js_nm_resumido = document.getElementById('id_nm_resumido');
+        var js_cor_fundo = document.getElementById('rgb_fundo');
+        var js_cor_fonte = document.getElementById('rgb_fonte');
+
+        $("#div_simula_cores").append("<div class='mini_caixa_painel' style='background-color:"+js_cor_fundo.value+"; color: "+js_cor_fonte.value+";'>"+js_nm_resumido.value+"</div>");
     }
 
     document.getElementById('inpt_cracha').addEventListener('keydown', function() {
