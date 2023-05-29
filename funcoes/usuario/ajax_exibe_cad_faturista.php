@@ -13,7 +13,14 @@
             Fonte:
             <input value="#000000" type="color" id="rgb_fonte" class="form form-control" onchange="ajax_atualiza_cores()">
 
-        </div>        
+        </div>      
+        
+        <div class="col-4 col-md-2" style="background-color: rgba(1,1,1,0) !important; padding-top: 0px !important;">
+
+            </br>
+            <button class="btn btn-primary" onclick="ajax_cad_faturista()"><i class="fa-solid fa-plus"></i> Adicionar</button>
+
+        </div>   
 
     </div>
 
@@ -52,17 +59,11 @@
                     <div class="mini_caixa_painel">...</div> 
                     <div style="clear: both;"></div>
 
-                </div>   
-            
-    
+                </div>            
 
         <div>
 
     </div>
-
-
-
-
 
         </div>
 

@@ -4,9 +4,14 @@
 
     include '../../conexao.php';
 
-    $cons_nm_resumido = "SELECT NM_RESUMIDO, LENGTH(NM_RESUMIDO) AS TAMANHO
-                         FROM controle_chave.VW_FUNC_CRACHA
-                         WHERE CRACHA = '$var_cd_cracha'";
+    $cons_nm_resumido = "SELECT 
+                         REGEXP_SUBSTR (usu.NM_USUARIO, '^\w+') || ' ' ||
+                         REGEXP_SUBSTR (usu.NM_USUARIO, '\w+$') AS NM_RESUMIDO,
+                         LENGTH(usu.NM_USUARIO) AS TAMANHO
+                         FROM dbasgu.USUARIOS usu
+                         WHERE usu.CD_USUARIO = '$var_cd_cracha'
+                         AND usu.CD_USUARIO NOT IN (SELECT CD_USUARIO
+                                                    FROM conta_fat.FATURISTA) ";
 
     $res = oci_parse($conn_ora, $cons_nm_resumido);
     oci_execute($res);

@@ -1517,7 +1517,7 @@
 							},
 							"name": "RBG_FUNDO",
 							"type": "VARCHAR",
-							"length": "20"
+							"length": "10"
 						},
 						{
 							"_type": "ERDColumn",
@@ -1525,9 +1525,9 @@
 							"_parent": {
 								"$ref": "AAAAAAGIWBkquj4dmM4="
 							},
-							"name": "RGB_FONT",
+							"name": "RGB_FONTE",
 							"type": "VARCHAR",
-							"length": "20"
+							"length": "10"
 						},
 						{
 							"_type": "ERDColumn",

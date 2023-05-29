@@ -4,6 +4,10 @@
 
     //ACESSO ADM
     //include 'acesso_restrito_adm.php';
+
+    //AJAX ALERTA
+    include 'config/mensagem/ajax_mensagem_alert.php';
+
 ?>
 
     <!--MENSAGENS-->
@@ -16,15 +20,14 @@
     <div class='espaco_pequeno'></div>
     <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply efeito-zoom" aria-hidden="true"></i> Voltar</a></h27>
 
-
-    <div class="div_br"> </div>
+    <div id="mensagem_acoes"></div>
 
     <div class="row">
 
         <div class="col-6 col-md-3" style="background-color: rgba(1,1,1,0) !important;">
 
-            Crachá:
-            <input id="inpt_cracha" type="text" class="form-control">
+            Cadastrar:
+            <input id="inpt_cracha" type="text" placeholder="ex. 000001249800"class="form-control">
 
         </div>
 
@@ -37,12 +40,18 @@
     </div>
 
     <div id="div_cad_faturista"></div>
+
+    <div id="div_lista_faturista"></div>
     
 <script>
 
     var timeoutId;
 
+    $('#div_lista_faturista').load('funcoes/usuario/ajax_exibe_lista_faturista.php');
+
     function fnc_busca_usu_mv_resumido(){
+
+        $("#div_cad_faturista").empty();
 
         var js_cracha = document.getElementById('inpt_cracha').value;
 
@@ -50,11 +59,18 @@
 
             var js_nm_resumido = document.getElementById('id_nm_resumido');
 
+            var nomeresum = js_nm_resumido.value.toLowerCase();
+            var partesNome = nomeresum.split(" ");
+            var capitalizedParts = partesNome.map(function(part) {
+            return part.charAt(0).toUpperCase() + part.slice(1);
+            });
+            var capnomeresum = capitalizedParts.join(" ");
+
             if(js_nm_resumido !== null){
 
             $('#div_cad_faturista').load('funcoes/usuario/ajax_exibe_cad_faturista.php?varcracha='+js_cracha, function(){
                 
-                $("#div_simula_cores").append("<div class='mini_caixa_painel'>"+js_nm_resumido.value+"</div>");
+                $("#div_simula_cores").append("<div class='mini_caixa_painel'>"+capnomeresum+"</div>");
                 console.log("Conteúdo adicionado à #div_simula_cores");
 
             });
@@ -77,13 +93,90 @@
         var js_cor_fundo = document.getElementById('rgb_fundo');
         var js_cor_fonte = document.getElementById('rgb_fonte');
 
-        $("#div_simula_cores").append("<div class='mini_caixa_painel' style='background-color:"+js_cor_fundo.value+"; color: "+js_cor_fonte.value+";'>"+js_nm_resumido.value+"</div>");
+        var nomeresum = js_nm_resumido.value.toLowerCase();
+        var partesNome = nomeresum.split(" ");
+        var capitalizedParts = partesNome.map(function(part) {
+        return part.charAt(0).toUpperCase() + part.slice(1);
+        });
+        var capnomeresum = capitalizedParts.join(" ");
+
+        $("#div_simula_cores").append("<div class='mini_caixa_painel' style='background-color:"+js_cor_fundo.value+"; color: "+js_cor_fonte.value+";'>"+capnomeresum+"</div>");
     }
 
     document.getElementById('inpt_cracha').addEventListener('keydown', function() {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(fnc_busca_usu_mv_resumido, 1000); //1 seg
     });
+
+
+    function ajax_cad_faturista(){
+
+        var js_cracha = document.getElementById('inpt_cracha').value;
+        var js_cor_fundo = document.getElementById('rgb_fundo').value;
+        var js_cor_fonte = document.getElementById('rgb_fonte').value;
+
+        //alert(js_cracha + ' | ' + js_cor_fundo + ' | ' + js_cor_fonte);
+
+        $.ajax({
+            url: "funcoes/usuario/ajax_insert_faturista.php",
+            type: "POST",
+            data: {
+
+                usuario: js_cracha,
+                fundo: js_cor_fundo,
+                fonte: js_cor_fonte
+
+                },
+            cache: false,
+            success: function(dataResult){
+
+                console.log(dataResult);
+
+                if(dataResult == 'Sucesso'){
+
+                    
+                    //LIMPA A TELA
+                    document.getElementById('inpt_cracha').value = '';
+                    $('#div_usu_resumido').empty();
+                    $("#div_cad_faturista").empty();     
+                    
+                    //ATUALIZA LISTA
+                    $('#div_lista_faturista').load('funcoes/usuario/ajax_exibe_lista_faturista.php');
+
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Faturista%20cadastrado%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+                    //var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                    
+
+                }else{
+                  
+                    //LIMPA A TELA
+                    document.getElementById('inpt_cracha').value = '';
+                    $('#div_usu_resumido').empty();
+                    $("#div_cad_faturista").empty();     
+                    
+                    //ATUALIZA LISTA
+                    $('#div_lista_faturista').load('funcoes/usuario/ajax_exibe_lista_faturista.php');
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Erro%20ao%20cadastrar%20a%20faturista!';
+                    //var_tp_msg = 'alert-success';
+                    var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                
+                
+                }  
+
+            }
+
+        }); 
+        
+    }
 
 </script>
 
