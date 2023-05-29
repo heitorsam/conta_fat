@@ -37,24 +37,24 @@
 
         echo '<tbody>';           
 
-            while($row_ficha = oci_fetch_array($result_select)){
+            while($row = oci_fetch_array($result_select)){
 
                 echo '<tr>';
                 
-                    echo '<td class="align-middle" style="text-align: center;">' . $row_ficha['CD_FATURISTA'] . '</td>';
-                    echo '<td class="align-middle" style="text-align: center;">' . $row_ficha['CD_USUARIO'] . '</td>';
-                    echo '<td class="align-middle" style="text-align: center;">' . $row_ficha['NM_USUARIO_RESUMIDO'] . '</td>';
+                    echo '<td class="align-middle" style="text-align: center;">' . $row['CD_FATURISTA'] . '</td>';
+                    echo '<td class="align-middle" style="text-align: center;">' . $row['CD_USUARIO'] . '</td>';
+                    echo '<td class="align-middle" style="text-align: center;">' . $row['NM_USUARIO_RESUMIDO'] . '</td>';
                     echo '<td class="align-middle" style="text-align: center;">' 
-                    . "<div class='mini_caixa_painel' style='float: none !important; margin: 0 auto !important; width: max-content; background-color:" . $row_ficha['RGB_FUNDO'] . "; color: " . $row_ficha['RGB_FONTE'] . ";'>" . $row_ficha['NM_USUARIO_RESUMIDO'] . "</div>"
+                    . "<div class='mini_caixa_painel' style='float: none !important; margin: 0 auto !important; width: max-content; background-color:" . $row['RGB_FUNDO'] . "; color: " . $row['RGB_FONTE'] . ";'>" . $row['NM_USUARIO_RESUMIDO'] . "</div>"
                     . '</td>';
 
-                    if($row_ficha['SN_ATIVO'] == 'A'){
+                    if($row['SN_ATIVO'] == 'S'){
 
                         echo '<td class="align-middle" style="text-align: center;">' . '<i style=" color: #79c332; cursor: pointer; font-size: 20px;" class="fa-solid fa-toggle-on"' ;
     
                         ?>
     
-                            onclick="ajax_alert('Deseja alterar o status?','ajax_inativa(<?php echo $row_ficha['CD_FICHA_INSPECAO']; ?>,1)')"
+                            onclick="ajax_alert('Deseja alterar o status?','ajax_inativa(<?php echo $row['CD_FATURISTA']; ?>,1)')"
     
                         <?php
     
@@ -66,7 +66,7 @@
     
                         ?>
     
-                            onclick="ajax_alert('Deseja alterar o status?','ajax_inativa(<?php echo $row_ficha['CD_FICHA_INSPECAO']; ?>,2)')"
+                            onclick="ajax_alert('Deseja alterar o status?','ajax_inativa(<?php echo $row['CD_FATURISTA']; ?>,2)')"
     
                         <?php
     
@@ -77,13 +77,13 @@
 
                     echo '<td class="align-middle" style="text-align: center;">';
 
-                    if($row_ficha['QTD_ACOES'] == 0){
+                    if($row['QTD_ACOES'] == 0){
 
                         echo '  <a class="btn btn-adm"';
 
                         ?>
     
-                            onclick="ajax_alert('Deseja excluir a ficha?','ajax_exclui_cad_ficha(<?php echo $row_ficha['CD_FICHA_INSPECAO']; ?>,2)')"
+                            onclick="ajax_alert('Deseja excluir a faturista?','ajax_exclui_faturista(<?php echo $row['CD_FATURISTA']; ?>,2)')"
     
                         <?php
                                         
@@ -91,7 +91,7 @@
 
                     }else{
 
-                        echo '  <a class="btn btn-secondary" > <i class="fa-solid fa-trash"></i> </a>';
+                        echo '<a class="btn btn-secondary"> <i class="fa-solid fa-trash"></i> </a>';
                     
                     }
                   

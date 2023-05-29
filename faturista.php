@@ -134,15 +134,7 @@
 
                 if(dataResult == 'Sucesso'){
 
-                    
-                    //LIMPA A TELA
-                    document.getElementById('inpt_cracha').value = '';
-                    $('#div_usu_resumido').empty();
-                    $("#div_cad_faturista").empty();     
-                    
-                    //ATUALIZA LISTA
-                    $('#div_lista_faturista').load('funcoes/usuario/ajax_exibe_lista_faturista.php');
-
+                    ajax_atualiza_lista_faturista();
 
                     //MENSAGEM            
                     var_ds_msg = 'Faturista%20cadastrado%20com%20sucesso!';
@@ -176,6 +168,117 @@
 
         }); 
         
+    }   
+    
+    
+    function ajax_exclui_faturista(js_cd_faturista){
+
+        $.ajax({
+            url: "funcoes/usuario/ajax_exclui_faturista.php",
+            type: "POST",
+            data: {
+
+                cd_faturista: js_cd_faturista
+
+                },
+            cache: false,
+            success: function(dataResult){
+
+                console.log(dataResult);
+
+                if(dataResult == 'Sucesso'){
+                    
+                    ajax_atualiza_lista_faturista();
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Faturista%20excluído%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+                    //var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                    
+
+                }else{
+                
+                    ajax_atualiza_lista_faturista();
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Erro%20ao%20cadastrar%20a%20faturista!';
+                    //var_tp_msg = 'alert-success';
+                    var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                
+                
+                }  
+
+            }
+
+        }); 
+
+    }
+
+
+    function ajax_atualiza_lista_faturista(){
+
+        //LIMPA A TELA
+        document.getElementById('inpt_cracha').value = '';
+
+        $('#div_usu_resumido').empty();
+        $("#div_cad_faturista").empty();     
+        
+        //ATUALIZA LISTA
+        $('#div_lista_faturista').load('funcoes/usuario/ajax_exibe_lista_faturista.php');
+
+    }
+
+    function ajax_inativa(js_cd_faturista, js_status){
+
+        $.ajax({
+
+            url: "funcoes/usuario/ajax_inativa_faturista.php",
+            type: "POST",
+            data: {
+                
+                codigo : js_cd_faturista,
+                status: js_status
+                
+            },
+
+            cache: false,
+            success: function(dataResult){
+
+            console.log(dataResult);
+
+                if(dataResult == 'Sucesso'){
+
+                    //alert(var_beep);
+                    //MENSAGEM            
+                    var_ds_msg = 'Status%20alterado%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+                    //var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                    ajax_atualiza_lista_faturista();
+
+                }else {
+
+                    //alert(var_beep);
+                    //MENSAGEM            
+                    var_ds_msg = 'Ocorreu%20um%20erro%20ao%20alterar%20o%20status!';
+                    //var_tp_msg = 'alert-success';
+                    var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                    ajax_atualiza_lista_faturista();
+                }
+
+            }
+
+        }); 
+
     }
 
 </script>
