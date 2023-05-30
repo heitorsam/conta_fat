@@ -45,8 +45,15 @@
                     echo '<td class="align-middle" style="text-align: center;">' . $row['CD_USUARIO'] . '</td>';
                     echo '<td class="align-middle" style="text-align: center;">' . $row['NM_USUARIO_RESUMIDO'] . '</td>';
                     echo '<td class="align-middle" style="text-align: center;">' 
-                    . "<div class='mini_caixa_painel' style='float: none !important; margin: 0 auto !important; width: max-content; background-color:" . $row['RGB_FUNDO'] . "; color: " . $row['RGB_FONTE'] . ";'>" . $row['NM_USUARIO_RESUMIDO'] . "</div>"
-                    . '</td>';
+                    . "<div class='mini_caixa_painel' ";                    
+
+                    ?>
+
+                    onclick="ajax_exibe_cores_editar(<?php echo $row['CD_FATURISTA']; ?>,'<?php echo $row['NM_USUARIO_RESUMIDO']; ?>','<?php echo $row['RGB_FUNDO']; ?>','<?php echo $row['RGB_FONTE']; ?>')"
+                    
+                    <?php
+
+                    echo " style='cursor: pointer; float: none !important; margin: 0 auto !important; width: max-content; background-color:" . $row['RGB_FUNDO'] . "; color: " . $row['RGB_FONTE'] . ";'>" . $row['NM_USUARIO_RESUMIDO'] . "</div>" . "</td>";
 
                     if($row['SN_ATIVO'] == 'S'){
 

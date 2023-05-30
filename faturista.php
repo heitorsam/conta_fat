@@ -42,14 +42,35 @@
     <div id="div_cad_faturista"></div>
 
     <div id="div_lista_faturista"></div>
-    
+
+    <!--MODAL EDITAR COR-->
+    <div class="modal fade" id="modaleditarcor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"  style="width: 300px !important; margin: 0 auto;">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Cores</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div id="div_editar_cores"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa-solid fa-xmark"></i> Fechar</button>
+            <button onclick="ajax_editar_cor_faturista()" type="button" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+        </div>
+        </div>
+    </div>
+    </div>
+        
 <script>
 
     var timeoutId;
 
     $('#div_lista_faturista').load('funcoes/usuario/ajax_exibe_lista_faturista.php');
 
-    function fnc_busca_usu_mv_resumido(){
+    function fnc_busca_usu_mv_resumido(){      
 
         $("#div_cad_faturista").empty();
 
@@ -71,8 +92,7 @@
             $('#div_cad_faturista').load('funcoes/usuario/ajax_exibe_cad_faturista.php?varcracha='+js_cracha, function(){
                 
                 $("#div_simula_cores").append("<div class='mini_caixa_painel'>"+capnomeresum+"</div>");
-                console.log("Conteúdo adicionado à #div_simula_cores");
-
+  
             });
 
             }else{
@@ -101,6 +121,100 @@
         var capnomeresum = capitalizedParts.join(" ");
 
         $("#div_simula_cores").append("<div class='mini_caixa_painel' style='background-color:"+js_cor_fundo.value+"; color: "+js_cor_fonte.value+";'>"+capnomeresum+"</div>");
+    }
+
+
+    function ajax_exibe_cores_editar(js_cd_faturista,js_nm_resumido,js_rgb_fundo,js_rgb_fonte){
+
+        js_rgb_fundo = js_rgb_fundo.replace("#", "");
+        js_rgb_fonte = js_rgb_fonte.replace("#", "");
+        js_nm_resumido_sem_espaco = js_nm_resumido.replace(" ", "_");
+
+        //alert(js_cd_faturista + ' | ' + js_nm_resumido + ' | ' + js_rgb_fundo + ' | ' + js_rgb_fonte);
+
+        $('#modaleditarcor').modal('show');  
+
+        $('#div_editar_cores').load('funcoes/usuario/ajax_editar_cor_faturista.php?varcdfaturista='+js_cd_faturista+'&varfundo='+js_rgb_fundo+'&varfonte='+js_rgb_fonte+'&varresumido='+js_nm_resumido_sem_espaco, function(){
+                        
+            $("#div_simula_cores_editar").append("<div class='mini_caixa_painel' style='background-color: #"+js_rgb_fundo+"; color: #"+js_rgb_fonte+";'>"+js_nm_resumido+"</div>");
+  
+        });
+      
+        //$("#div_simula_cores_editar").empty();
+
+        //$("#div_simula_cores_editar").append("<div class='mini_caixa_painel' style='background-color:"+js_rgb_fundo+"; color: "+js_rgb_fonte+";'>"+js_nm_resumido+"</div>");
+    
+    }
+
+    function ajax_atualiza_cores_editar(js_nm_resumido){
+
+        $("#div_simula_cores_editar").empty();
+
+        var js_cor_fundo_editar = document.getElementById('rgb_fundo_editar').value;
+        var js_cor_fonte_editar = document.getElementById('rgb_fonte_editar').value;
+
+        $("#div_simula_cores_editar").append("<div class='mini_caixa_painel' style='background-color:"+js_cor_fundo_editar+"; color: "+js_cor_fonte_editar+";'>"+js_nm_resumido+"</div>");
+    
+    }
+
+    function ajax_editar_cor_faturista(){
+
+        var js_cd_faturista_editar = document.getElementById('input_faturista_atual').value;
+        var js_cor_fundo_editar = document.getElementById('rgb_fundo_editar').value;
+        var js_cor_fonte_editar = document.getElementById('rgb_fonte_editar').value;
+
+        //alert(js_cd_faturista_editar + ' | ' + js_cor_fundo_editar + ' | ' + js_cor_fonte_editar);
+
+        $.ajax({
+            url: "funcoes/usuario/ajax_update_cor_faturista.php",
+            type: "POST",
+            data: {
+
+                cdfat: js_cd_faturista_editar,
+                fundo: js_cor_fundo_editar,
+                fonte: js_cor_fonte_editar
+
+                },
+            cache: false,
+            success: function(dataResult){
+
+                console.log(dataResult);
+
+                if(dataResult == 'Sucesso'){
+
+                    ajax_atualiza_lista_faturista();
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Faturista%20editado%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+                    //var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                    
+
+                }else{
+                  
+                    //LIMPA A TELA
+                    document.getElementById('inpt_cracha').value = '';
+                    $('#div_usu_resumido').empty();
+                    $("#div_cad_faturista").empty();     
+                    
+                    //ATUALIZA LISTA
+                    $('#div_lista_faturista').load('funcoes/usuario/ajax_exibe_lista_faturista.php');
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Erro%20ao%20editar%20a%20faturista!';
+                    //var_tp_msg = 'alert-success';
+                    var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);                
+                
+                }  
+
+            }
+
+        });
+
     }
 
     document.getElementById('inpt_cracha').addEventListener('keydown', function() {
@@ -159,8 +273,7 @@
                     //var_tp_msg = 'alert-success';
                     var_tp_msg = 'alert-danger';
                     //var_tp_msg = 'alert-primary';
-                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-                
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);                
                 
                 }  
 
@@ -196,7 +309,6 @@
                     //var_tp_msg = 'alert-danger';
                     //var_tp_msg = 'alert-primary';
                     $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-                    
 
                 }else{
                 
@@ -208,8 +320,7 @@
                     var_tp_msg = 'alert-danger';
                     //var_tp_msg = 'alert-primary';
                     $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-                
-                
+                                
                 }  
 
             }
