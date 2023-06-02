@@ -1356,6 +1356,29 @@ tbody{
 
 }
 
+.mini_caixa_painel_icone{
+
+    color: #3d3d3d;
+    font-size: 12px;
+    background-color: #ffffff;
+    margin-left: 2px; 
+    border: solid 1px #dadada; 
+    border-radius: 3px;
+    padding: 1px 6px 1px 6px; 
+    float: left;
+    margin-top: 2px;
+    width: auto; 
+    word-wrap: break-word; 
+    text-align:left;
+
+}
+
+.mini_caixa_painel_icone:hover{
+
+    color: #e05757;	
+
+}
+
 .numerocomcirculo {
 
   color: white;
@@ -1394,5 +1417,15 @@ tbody{
     float: left;
 
 }
+
+.selecionado{
+
+    border: solid 3px #3185c1;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+
+}
+
+
 
 </style>

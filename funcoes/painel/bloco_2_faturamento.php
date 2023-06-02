@@ -5,6 +5,7 @@
     $cons_total = "SELECT LPAD(NVL(COUNT(dc.CD_ATENDIMENTO),0),2,0) AS QTD_TOTAL
                    FROM conta_fat.VDIC_DETALHE_CONTA_FAT dc
                    WHERE TO_CHAR(TO_DATE(dc.DT_ALTA,'DD/MM/YYYY'),'YYYY-MM-DD') BETWEEN '$var_dt_ini' AND '$var_dt_fin'
+                   AND dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO NOT IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('A','C'))
                    AND dc.CD_PORTADOR_ATUAL = 2";
 
     $res_total = oci_parse($conn_ora,$cons_total);
@@ -16,11 +17,11 @@
     $var_total_atd = $row_tot['QTD_TOTAL'];
 
     //DETALHE
-
     $cons_detalhe = "SELECT dc.*
                      FROM conta_fat.VDIC_DETALHE_CONTA_FAT dc
                      WHERE TO_CHAR(TO_DATE(dc.DT_ALTA,'DD/MM/YYYY'),'YYYY-MM-DD') BETWEEN '$var_dt_ini' AND '$var_dt_fin'
                      AND dc.CD_PORTADOR_ATUAL = 2
+                     AND dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO NOT IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('A','C'))
                      ORDER BY dc.DT_ALTA ASC";
 
     $res_detalhe = oci_parse($conn_ora,$cons_detalhe);
@@ -57,7 +58,7 @@
 
             }
 
-            echo '<div id="' . $row_det['CD_PROTOCOLO'] . '"';
+            echo '<div id="' . $row_det['CD_PROTOCOLO'] . '_' . $row_det['CD_ATENDIMENTO'] . '"';
 
             ?>
 

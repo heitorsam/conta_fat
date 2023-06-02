@@ -12,7 +12,7 @@
                         (SELECT COUNT(mv.CD_MOVIMENTACAO) AS QTD
                         FROM conta_fat.MOVIMENTACAO mv
                         WHERE mv.CD_USUARIO_ORIGEM = fat.CD_USUARIO
-                        OR mv.CD_USUARIO_DESTINO = fat.CD_USUARIO
+                        OR mv.CD_USUARIO_DESTINO = fat.CD_FATURISTA
                         ) AS QTD_ACOES
                         FROM conta_fat.FATURISTA fat
                         ORDER BY fat.CD_FATURISTA DESC";
@@ -86,7 +86,7 @@
 
                     if($row['QTD_ACOES'] == 0){
 
-                        echo '  <a class="btn btn-adm"';
+                        echo '<a class="btn btn-adm"';
 
                         ?>
     

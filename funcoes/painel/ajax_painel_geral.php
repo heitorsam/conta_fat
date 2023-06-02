@@ -1,5 +1,6 @@
 <?php
 
+    session_start();
     include '../../conexao.php';
 
     //COLETANDO VALORES COM GET
@@ -50,3 +51,19 @@
     echo '</div>';
 
 ?>
+
+<script>
+
+    //OBSERVACAO
+
+    function ajax_abre_modal_obs(js_cd_conta, js_qtd_msg){
+
+        $('#modalobsfat').modal('show');  
+
+        console.log(js_cd_conta + ' | ' + js_qtd_msg);
+
+        $('#div_obs_fat').load('funcoes/painel/ajax_exibe_obs_faturista.php?cdconta='+js_cd_conta+'&qtdmsg='+js_qtd_msg);  
+
+    }
+
+</script>
