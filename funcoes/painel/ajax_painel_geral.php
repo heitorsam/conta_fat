@@ -40,13 +40,11 @@
 
         echo '</div>';
 
-
         echo '<div class="col-2" style="padding: 0px !important; margin: 0px !important; background-color: rgba(1,1,1,0) !important;">';
 
             include 'bloco_faturista.php';
 
         echo '</div>';
-
 
     echo '</div>';
 
@@ -55,14 +53,72 @@
 <script>
 
     //OBSERVACAO
-
     function ajax_abre_modal_obs(js_cd_conta, js_qtd_msg){
+        
+        sessionStorage.setItem("sessao_conta_fat_obs",js_cd_conta);
 
         $('#modalobsfat').modal('show');  
 
-        console.log(js_cd_conta + ' | ' + js_qtd_msg);
+        //console.log(js_cd_conta + ' | ' + js_qtd_msg);
 
         $('#div_obs_fat').load('funcoes/painel/ajax_exibe_obs_faturista.php?cdconta='+js_cd_conta+'&qtdmsg='+js_qtd_msg);  
+
+    }
+
+    function ajax_salva_obs_fat(){
+
+        var js_msg_obs_fat = document.getElementById('txt_obs_fat').value;
+
+        var js_cd_conta_obs = sessionStorage.getItem("sessao_conta_fat_obs");  
+
+        //console.log(js_msg_obs_fat);
+
+        $.ajax({
+            url: "funcoes/painel/ajax_insert_obs_faturista.php",
+            type: "POST",
+            data: {
+
+                cdconta: js_cd_conta_obs,
+                msgobs: js_msg_obs_fat
+
+                },
+            cache: false,
+            success: function(dataResult){
+
+                console.log(dataResult);
+
+                if(dataResult == 'Sucesso'){
+
+                    ajax_carrega_painel_geral();
+                    //$('#modalobsfat').modal('hide');  
+
+                    $('#div_obs_fat').load('funcoes/painel/ajax_exibe_obs_faturista.php?cdconta='+js_cd_conta+'&qtdmsg='+js_qtd_msg);  
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Observação%20salva%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+                    //var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                }else{               
+
+                    ajax_carrega_painel_geral();
+                    //$('#modalobsfat').modal('hide');  
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Erro%20ao%20salvar%20a%20observação!';
+                    //var_tp_msg = 'alert-success';
+                    var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);                
+                
+                }  
+
+            }
+
+        });       
+
 
     }
 

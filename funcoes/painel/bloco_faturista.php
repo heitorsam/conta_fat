@@ -90,9 +90,16 @@
 
                     if($row_det['CD_USUARIO'] == $_SESSION['usuarioLogin']){
 
-                        echo '<div onclick="ajax_abre_modal_obs(' . $row_det['CD_CONTA'] . ',' . $row_det['QTD_MSG'] .  ')" class="mini_caixa_painel_icone" style="word-wrap: break-word !important;">' 
-                        . ' <i class="fa-solid fa-book"></i> '
-                        . '</div>';  
+                        $var_style_fundo_obs = "mini_caixa_painel_icone";
+
+                        if($row_det['QTD_MSG'] <> 0){
+                            
+                            $var_style_fundo_obs = "mini_caixa_painel_icone_dado";
+                        
+                        }
+
+                        echo '<div onclick="ajax_abre_modal_obs(' . $row_det['CD_CONTA'] . ',' . $row_det['QTD_MSG'] .  ')" class="' . $var_style_fundo_obs . '" style="word-wrap: break-word !important; ">' 
+                        . ' <i class="fa-solid fa-book"></i> </div>';
 
                     }
 

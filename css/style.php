@@ -1379,6 +1379,28 @@ tbody{
 
 }
 
+.mini_caixa_painel_icone_dado{
+
+    color: #3d3d3d;
+    font-size: 12px;
+    background-color: #ffffff;
+    margin-left: 2px; 
+    border: solid 1px #e05757; 
+    border-radius: 3px;
+    padding: 1px 6px 1px 6px; 
+    float: left;
+    margin-top: 2px;
+    width: auto; 
+    word-wrap: break-word; 
+    text-align:left;
+
+}
+
+.mini_caixa_painel_icone_dado:hover{
+
+    color: #e05757;	
+}
+
 .numerocomcirculo {
 
   color: white;
