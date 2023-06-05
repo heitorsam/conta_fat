@@ -46,6 +46,12 @@
 
         echo '</div>';
 
+        echo '<div class="col-2" style="padding: 0px !important; margin: 0px !important; background-color: rgba(1,1,1,0) !important;">';
+
+            include 'bloco_concluido.php';
+
+        echo '</div>';
+
     echo '</div>';
 
 ?>
@@ -53,7 +59,7 @@
 <script>
 
     //OBSERVACAO
-    function ajax_abre_modal_obs(js_cd_conta, js_qtd_msg){
+    function ajax_abre_modal_obs(js_cd_conta, js_qtd_msg, js_sn_autoriza){
         
         sessionStorage.setItem("sessao_conta_fat_obs",js_cd_conta);
 
@@ -61,8 +67,19 @@
 
         //console.log(js_cd_conta + ' | ' + js_qtd_msg);
 
-        $('#div_obs_fat').load('funcoes/painel/ajax_exibe_obs_faturista.php?cdconta='+js_cd_conta+'&qtdmsg='+js_qtd_msg);  
+        $('#div_obs_fat').load('funcoes/painel/ajax_exibe_obs_faturista.php?cdconta='+js_cd_conta+'&qtdmsg='+js_qtd_msg+'&snautoriza='+js_sn_autoriza);  
 
+
+        if(js_sn_autoriza == 1){
+
+            document.getElementById("id_btn_salvar_obs_fat").disabled = false;          
+
+        }else{
+
+            document.getElementById("id_btn_salvar_obs_fat").disabled = true;  
+
+
+        }
     }
 
     function ajax_salva_obs_fat(){

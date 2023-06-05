@@ -9,6 +9,7 @@
     $usuario_login = $_SESSION['usuarioLogin'];
     $var_cd_conta = $_GET['cdconta'];
     $var_qtd_msg = $_GET['qtdmsg'];
+    $var_sn_autoriza = $_GET['snautoriza'];
 
     //EXECUTANDO COMANDOS NO ORACLE
     $consulta_obs = "SELECT msg.CD_MENSAGEM, msg.CD_CONTA, msg.TP_MENSAGEM,
@@ -27,6 +28,14 @@
 
     $row = oci_fetch_array($result);
 
-    echo '<textarea class="form-control" id="txt_obs_fat" rows="7">' . @$row['DS_MENSAGEM'] . '</textarea>';
+    echo '<textarea class="form-control" id="txt_obs_fat" rows="7" ';
+
+    if($var_sn_autoriza == 0){
+
+        echo 'disabled';
+    }
+    
+    
+    echo '>' . @$row['DS_MENSAGEM'] . '</textarea>';
 
 ?>

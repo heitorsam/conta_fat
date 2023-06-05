@@ -87,7 +87,7 @@
                         <!--MENU-->     
 
                             <a class="dropdown-item" style="background-color: #f5f5f5;" href="javascript:void(0)"><i class="fa-solid fa-user"></i> Conta Fat</a> 
-                            <a class="dropdown-item" href="#"><i class="fa-solid fa-magnifying-glass"></i> ???</a>
+                            <a class="dropdown-item" href="home.php"><i class="fa-solid fa-table-columns"></i> Painel</a>
 
                             <?php if($_SESSION['SN_USUARIO_ADM_FATURAMENTO'] == 'S'){ ?>
 

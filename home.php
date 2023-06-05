@@ -197,35 +197,167 @@
 
     function drag(ev) {
         //alert(ev);
+        sessionStorage.setItem("tp_drag","faturamento"); 
         ev.dataTransfer.setData("drag_id_objeto", ev.target.id);
     }
 
     function drop(ev) {
 
-        ev.preventDefault();
-        var js_drag_id_objeto = ev.dataTransfer.getData("drag_id_objeto");
+        var js_tp_drag = sessionStorage.getItem("tp_drag"); 
+
+        if(js_tp_drag == 'faturamento'){
+
+            ev.preventDefault();
+            var js_drag_id_objeto = ev.dataTransfer.getData("drag_id_objeto");
+            
+            //esse comentario deixa o objeto na nova caixa
+            //ev.target.appendChild(document.getElementById(js_drag_id_objeto));
+            //alert('aqui abre model com o id ' + js_drag_id_objeto);
+            //alert('arrastou! o protocolo: ' + js_drag_id_objeto);
+
+            //alert(js_drag_id_objeto);
+
+            //SALVANDO SESSAO PROTOCOLO
+            sessionStorage.setItem("sessao_protocolo_atual",js_drag_id_objeto);
+
+            //LIMPANDO A SESSAO
+            sessionStorage.setItem("sessao_sel_fat",0);
+
+            //BLOQUEANDO BOTAO
+            document.getElementById("id_btn_salvar_sel_fat").disabled = true;
+
+            $('#modalselfat').modal('show');  
+
+            $('#div_sel_fat').load('funcoes/usuario/ajax_lista_fat.php');
+
+        }
+
+        if(js_tp_drag == 'concluido'){
+
+            console.log('retorna');
+            
+            ev.preventDefault();
+            var js_drag_id_objeto = ev.dataTransfer.getData("drag_id_objeto");
+
+            //AJAX QUE FAZ O INSERT NA MOVIMENTACAO E DEPOIS UM UPDATE NA CONTA
+            $.ajax({
+                url: "funcoes/painel/ajax_retorna_conta.php",
+                type: "POST",
+                data: {
+
+                    cdconta: js_drag_id_objeto
+
+                    },
+                cache: false,
+                success: function(dataResult){
+
+                    console.log(dataResult);
+
+                    if(dataResult == 'Sucesso'){
+
+                        ajax_carrega_painel_geral();
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Conta%20retornada%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+                        //var_tp_msg = 'alert-danger';
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                        
+                    }else{               
+
+                        ajax_carrega_painel_geral();
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Erro%20ao%20retornar%20a%20conta!';
+                        //var_tp_msg = 'alert-success';
+                        var_tp_msg = 'alert-danger';
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);                
+                    
+                    }  
+
+                }
+
+            });  
+        }
         
-        //esse comentario deixa o objeto na nova caixa
-        //ev.target.appendChild(document.getElementById(js_drag_id_objeto));
-        //alert('aqui abre model com o id ' + js_drag_id_objeto);
-        //alert('arrastou! o protocolo: ' + js_drag_id_objeto);
+    }
 
-        //alert(js_drag_id_objeto);
+    function drag_faturista(ev) {
+        //alert(ev);
+        sessionStorage.setItem("tp_drag","faturista"); 
+        ev.dataTransfer.setData("drag_id_objeto", ev.target.id);
+    }
 
-        //SALVANDO SESSAO PROTOCOLO
-        sessionStorage.setItem("sessao_protocolo_atual",js_drag_id_objeto);
+    function drop_concluido(ev) {
 
-        //LIMPANDO A SESSAO
-        sessionStorage.setItem("sessao_sel_fat",0);
+        var js_tp_drag = sessionStorage.getItem("tp_drag"); 
 
-        //BLOQUEANDO BOTAO
-        document.getElementById("id_btn_salvar_sel_fat").disabled = true;
+        if(js_tp_drag == 'faturista'){
 
-        $('#modalselfat').modal('show');  
+            ev.preventDefault();
+            var js_drag_id_objeto = ev.dataTransfer.getData("drag_id_objeto");
 
-        $('#div_sel_fat').load('funcoes/usuario/ajax_lista_fat.php');
+            //esse comentario deixa o objeto na nova caixa
+            //ev.target.appendChild(document.getElementById(js_drag_id_objeto));
+            //alert('aqui abre model com o id ' + js_drag_id_objeto);
+            //alert('arrastou! o protocolo: ' + js_drag_id_objeto);
+
+            console.log(js_drag_id_objeto);
+
+            //AJAX QUE FAZ O INSERT NA MOVIMENTACAO E DEPOIS UM UPDATE NA CONTA
+            $.ajax({
+                url: "funcoes/painel/ajax_conclui_conta.php",
+                type: "POST",
+                data: {
+
+                    cdconta: js_drag_id_objeto
+
+                    },
+                cache: false,
+                success: function(dataResult){
+
+                    console.log(dataResult);
+
+                    if(dataResult == 'Sucesso'){
+
+                        ajax_carrega_painel_geral();
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Conta%20concluída%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+                        //var_tp_msg = 'alert-danger';
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                        
+                    }else{               
+
+                        ajax_carrega_painel_geral();
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Erro%20ao%20concluir%20a%20conta!';
+                        //var_tp_msg = 'alert-success';
+                        var_tp_msg = 'alert-danger';
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);                
+                    
+                    }  
+
+                }
+
+            });  
+
+        }
 
     }
+
+    function drag_concluido(ev) {
+        //alert(ev);
+        sessionStorage.setItem("tp_drag","concluido"); 
+        ev.dataTransfer.setData("drag_id_objeto", ev.target.id);
+    }
+
 
     function ajax_seleciona_faturista_opcao(js_cd_fat){
 

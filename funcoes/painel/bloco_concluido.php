@@ -3,7 +3,7 @@
     //TOTAL
     $cons_total = "SELECT LPAD(NVL(COUNT(dc.CD_ATENDIMENTO),0),2,0) AS QTD_TOTAL
                    FROM conta_fat.VDIC_DETALHE_CONTA_FAT dc
-                   WHERE dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('A'))";
+                   WHERE dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('C'))";
 
     $res_total = oci_parse($conn_ora,$cons_total);
 
@@ -42,7 +42,7 @@
                     ON fat.CD_FATURISTA = ult_mov.CD_USUARIO_DESTINO
                     INNER JOIN dbasgu.USUARIOS usu
                     ON usu.CD_USUARIO = fat.CD_USUARIO
-                    WHERE dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('A'))
+                    WHERE dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('C'))
                     ORDER BY INITCAP(LOWER(REGEXP_SUBSTR (usu.NM_USUARIO, '^\w+') || ' ' ||
                             REGEXP_SUBSTR (usu.NM_USUARIO, '\w+$'))) ASC, dc.DT_ALTA ASC";
 
@@ -56,7 +56,7 @@
 
             echo '<div class="divtitulo">';
 
-                echo 'Faturista';
+                echo 'Concluído';
 
             echo '</div>';
 
@@ -68,7 +68,7 @@
 
         echo '</div>';
 
-        echo '<div id="div_drop" ondrop="drop(event)" ondragover="allowDrop(event)"
+        echo '<div id="div_drop" ondrop="drop_concluido(event)" ondragover="allowDrop(event)"
                style="min-width: 100%; min-height: 250px; background-color: rgba(1,1,1,0);">';
 
             while($row_det = oci_fetch_array($res_detalhe)){
@@ -83,16 +83,8 @@
 
                 }
 
-                if($row_det['CD_USUARIO'] == $_SESSION['usuarioLogin']){
+                echo '<div id="' . $row_det['CD_CONTA'] . '" class="' . $var_tp_itens_painel . '" ondragstart="drag_concluido(event)" draggable="true">';
 
-                    //SO PODE ARRASTAR QUEM FOR DONO DA CAIXA
-                    echo '<div id="' . $row_det['CD_CONTA'] . '" class="' . $var_tp_itens_painel . '" ondragstart="drag_faturista(event)" draggable="true">';
-
-                }else{
-
-                    echo '<div id="' . $row_det['CD_CONTA'] . '" class="' . $var_tp_itens_painel . '">';
-
-                }
                     echo "<div class='mini_caixa_painel' style='width: max-content; 
                                                         background-color:" . $row_det['RGB_FUNDO'] . "; 
                                                         color: " . $row_det['RGB_FONTE'] . ";'>" . 
