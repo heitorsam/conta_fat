@@ -7,10 +7,11 @@
 
     $var_dt_ini = $_GET['dtini'];
     $var_dt_fin = $_GET['dtfin'];
+    $var_cd_unid_int = $_GET['cdunidint'];
     $var_ck_dt_alta = $_GET['ckdtalta'];
     $var_ck_unid_int = $_GET['ckunidint'];
     $var_ck_paciente = $_GET['ckpaciente'];
-    $var_ck_convenio = $_GET['ckconvenio'];
+    $var_ck_convenio = $_GET['ckconvenio']; 
 
     //echo '</br>Dt Inicio: ' . $var_dt_ini . ' | Dt Fim: '. $var_dt_fin;
 

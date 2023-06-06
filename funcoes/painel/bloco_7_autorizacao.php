@@ -1,11 +1,16 @@
 <?php 
 
     //TOTAL
+    //echo $var_cd_unid_int . '</br></br>';
 
     $cons_total = "SELECT LPAD(NVL(COUNT(dc.CD_ATENDIMENTO),0),2,0) AS QTD_TOTAL
                    FROM conta_fat.VDIC_DETALHE_CONTA_FAT dc
                    WHERE TO_CHAR(TO_DATE(dc.DT_ALTA,'DD/MM/YYYY'),'YYYY-MM-DD') BETWEEN '$var_dt_ini' AND '$var_dt_fin'
-                   AND dc.CD_PORTADOR_ATUAL = 7";
+                   AND dc.CD_PORTADOR_ATUAL = 7 ";
+
+                   if($var_cd_unid_int <> '0' || $var_cd_unid_int <> 0){
+                    $cons_total .= " AND dc.CD_UNID_INT = $var_cd_unid_int";
+                   }
 
     $res_total = oci_parse($conn_ora,$cons_total);
 
@@ -20,8 +25,13 @@
     $cons_detalhe = "SELECT dc.*
                      FROM conta_fat.VDIC_DETALHE_CONTA_FAT dc
                      WHERE TO_CHAR(TO_DATE(dc.DT_ALTA,'DD/MM/YYYY'),'YYYY-MM-DD') BETWEEN '$var_dt_ini' AND '$var_dt_fin'
-                     AND dc.CD_PORTADOR_ATUAL = 7
-                     ORDER BY dc.DT_ALTA ASC";
+                     AND dc.CD_PORTADOR_ATUAL = 7 "; 
+
+                    if($var_cd_unid_int <> '0' || $var_cd_unid_int <> 0){
+                        $cons_detalhe .= " AND dc.CD_UNID_INT = $var_cd_unid_int";
+                    }
+
+                     $cons_detalhe .= " ORDER BY dc.DT_ALTA ASC";
 
     $res_detalhe = oci_parse($conn_ora,$cons_detalhe);
 

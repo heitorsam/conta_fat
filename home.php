@@ -34,6 +34,11 @@
             <input id="dt_fin" onchange="ajax_carrega_painel_geral()" type="date" class="form-control">
         </div>
 
+        <div class="col-6 col-md-3" style="text-align: left; padding: 0px; padding-left: 20px; background-color: rgba(1,1,1,0) !important;"> 
+            Unidade Internação:
+            <div id="div_unid_int"></div>                  
+        </div>
+
     </div>
 
     <div class="div_br"> </div> 
@@ -117,10 +122,14 @@
         //VERIFICANDO SE EXISTE SESSAO
         var js_ss_dt_ini = sessionStorage.getItem("sessao_dt_ini"); 
         var js_ss_dt_fin = sessionStorage.getItem("sessao_dt_fin"); 
+        var js_ss_unid_int = sessionStorage.getItem("sessao_unid_int");  
+
+        //alert('load'+js_ss_unid_int);
+
         var js_ss_ck_dt_alta = sessionStorage.getItem("sessao_ck_dt_alta");
         var js_ss_ck_unid_int = sessionStorage.getItem("sessao_ck_unid_int"); 
         var js_ss_ck_paciente = sessionStorage.getItem("sessao_ck_paciente");   
-        var js_ss_ck_convenio = sessionStorage.getItem("sessao_ck_convenio");           
+        var js_ss_ck_convenio = sessionStorage.getItem("sessao_ck_convenio");                 
 
         if(js_ss_dt_ini == null || js_ss_dt_ini == ''){
 
@@ -134,8 +143,12 @@
             document.getElementById('ck_dt_alta').checked = true;
             document.getElementById('ck_unid_int').checked = true;
             document.getElementById('ck_paciente').checked = true;
-            document.getElementById('ck_convenio').checked = true;
+            document.getElementById('ck_convenio').checked = true;       
+                       
+            $('#div_unid_int').load('funcoes/painel/ajax_lista_unid_int.php?unidint=0', function() {
             
+                ajax_carrega_painel_geral();
+            }); 
 
         }else{
 
@@ -146,11 +159,16 @@
             if(js_ss_ck_dt_alta === 'true'){ document.getElementById('ck_dt_alta').checked = true; }else{ document.getElementById('ck_dt_alta').checked = false; }
             if(js_ss_ck_unid_int === 'true'){ document.getElementById('ck_unid_int').checked = true; }else{ document.getElementById('ck_unid_int').checked = false; }
             if(js_ss_ck_paciente === 'true'){ document.getElementById('ck_paciente').checked = true; }else{ document.getElementById('ck_paciente').checked = false; }
-            if(js_ss_ck_convenio === 'true'){ document.getElementById('ck_convenio').checked = true; }else{ document.getElementById('ck_convenio').checked = false; }
+            if(js_ss_ck_convenio === 'true'){ document.getElementById('ck_convenio').checked = true; }else{ document.getElementById('ck_convenio').checked = false; } 
+            
+            $('#div_unid_int').load('funcoes/painel/ajax_lista_unid_int.php?unidint='+js_ss_unid_int, function() {
+        
+                ajax_carrega_painel_geral();
+
+            }); 
         
         }
-
-        ajax_carrega_painel_geral();
+        
 
     }
 
@@ -164,6 +182,12 @@
         
         var js_dt_ini = document.getElementById('dt_ini').value;
         var js_dt_fin = document.getElementById('dt_fin').value;
+
+        var selectElement = document.querySelector("#sel_unid_int");
+        var selectedValue = selectElement.options[selectElement.selectedIndex].value;
+
+        var js_unid_int = selectedValue;
+
         var js_ck_dt_alta = document.getElementById('ck_dt_alta').checked; 
         var js_ck_unid_int = document.getElementById('ck_unid_int').checked;
         var js_ck_paciente = document.getElementById('ck_paciente').checked;
@@ -172,12 +196,17 @@
         //DEFINE SESSOES
         sessionStorage.setItem("sessao_dt_ini",js_dt_ini); 
         sessionStorage.setItem("sessao_dt_fin",js_dt_fin);
+        sessionStorage.setItem("sessao_unid_int",js_unid_int);
+
+        //alert('pegasessao' + js_unid_int);
+
         sessionStorage.setItem("sessao_ck_dt_alta",js_ck_dt_alta); 
         sessionStorage.setItem("sessao_ck_unid_int",js_ck_unid_int);
         sessionStorage.setItem("sessao_ck_paciente",js_ck_paciente);
         sessionStorage.setItem("sessao_ck_convenio",js_ck_convenio);
+        
 
-        $('#div_painel_geral').load('funcoes/painel/ajax_painel_geral.php?dtini='+js_dt_ini+'&dtfin='+js_dt_fin+'&ckdtalta='+js_ck_dt_alta+'&ckunidint='+js_ck_unid_int+'&ckpaciente='+js_ck_paciente+'&ckconvenio='+js_ck_convenio, function() {
+        $('#div_painel_geral').load('funcoes/painel/ajax_painel_geral.php?dtini='+js_dt_ini+'&dtfin='+js_dt_fin+'&ckdtalta='+js_ck_dt_alta+'&ckunidint='+js_ck_unid_int+'&ckpaciente='+js_ck_paciente+'&ckconvenio='+js_ck_convenio+'&cdunidint='+js_unid_int, function() {
             // definir o estilo CSS para ocultar o ícone após a conclusão da solicitação AJAX
             document.getElementById('carregando').style.display = 'none';
             document.getElementById('div_painel_geral').style.display = 'block';
