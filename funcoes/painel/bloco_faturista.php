@@ -5,6 +5,10 @@
                    FROM conta_fat.VDIC_DETALHE_CONTA_FAT dc
                    WHERE dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('A'))";
 
+                   if($var_cd_unid_int <> '0' || $var_cd_unid_int <> 0){
+                       $cons_total .= " AND dc.CD_UNID_INT = $var_cd_unid_int";
+                   }
+
     $res_total = oci_parse($conn_ora,$cons_total);
 
     oci_execute($res_total);
@@ -42,15 +46,20 @@
                     ON fat.CD_FATURISTA = ult_mov.CD_USUARIO_DESTINO
                     INNER JOIN dbasgu.USUARIOS usu
                     ON usu.CD_USUARIO = fat.CD_USUARIO
-                    WHERE dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('A'))
-                    ORDER BY INITCAP(LOWER(REGEXP_SUBSTR (usu.NM_USUARIO, '^\w+') || ' ' ||
-                            REGEXP_SUBSTR (usu.NM_USUARIO, '\w+$'))) ASC, dc.DT_ALTA ASC";
+                    WHERE dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('A'))";
+
+                    if($var_cd_unid_int <> '0' || $var_cd_unid_int <> 0){
+                        $cons_detalhe .= " AND dc.CD_UNID_INT = $var_cd_unid_int";
+                    }
+
+                    $cons_detalhe .= "ORDER BY INITCAP(LOWER(REGEXP_SUBSTR (usu.NM_USUARIO, '^\w+') || ' ' ||
+                                    REGEXP_SUBSTR (usu.NM_USUARIO, '\w+$'))) ASC, dc.DT_ALTA ASC";
 
     $res_detalhe = oci_parse($conn_ora,$cons_detalhe);
 
     oci_execute($res_detalhe);
 
-    echo '<div class="bloco_painel">';
+    echo '<div id="bloco_5" class="bloco_painel">';
 
         echo '<div class="titulo_painel" >';
 

@@ -34,7 +34,7 @@
     echo '<select onchange="ajax_carrega_painel_geral()" id="sel_unid_int" class="form-control">';
     
     if($var_cd_unid_int == 0){
-        echo '<option value="0">TODAS</option>';
+        echo '<option value="0">TODOS</option>';
     }
 
     while($row_unid_int = oci_fetch_array($res_unid_int)){
@@ -44,7 +44,7 @@
     }
 
     if($var_cd_unid_int <> 0){
-        echo '<option value="0">TODAS</option>';
+        echo '<option value="0">TODOS</option>';
     }
 
     echo '</select>';

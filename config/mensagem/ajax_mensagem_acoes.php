@@ -4,7 +4,7 @@
     $var_tp = $_GET['tp_msg'];
 
     echo "<div class='alert " . $var_tp . "' role='alert' style='position: fixed; 
-    text-align: center; font-size: 14px;
+    text-align: center; font-size: 14px; z-index: 99 !important;
     bottom: 20px; transform: translateX(-50%); left: 50%; min-width: 40%;'>";   
     echo $var_msg;                          
     echo "</div>";

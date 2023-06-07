@@ -8,6 +8,10 @@
                    AND dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO NOT IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('A','C'))
                    AND dc.CD_PORTADOR_ATUAL = 2";
 
+                  if($var_cd_unid_int <> '0' || $var_cd_unid_int <> 0){
+                      $cons_total .= " AND dc.CD_UNID_INT = $var_cd_unid_int";
+                  }
+
     $res_total = oci_parse($conn_ora,$cons_total);
 
     oci_execute($res_total);
@@ -21,14 +25,19 @@
                      FROM conta_fat.VDIC_DETALHE_CONTA_FAT dc
                      WHERE TO_CHAR(TO_DATE(dc.DT_ALTA,'DD/MM/YYYY'),'YYYY-MM-DD') BETWEEN '$var_dt_ini' AND '$var_dt_fin'
                      AND dc.CD_PORTADOR_ATUAL = 2
-                     AND dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO NOT IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('A','C'))
-                     ORDER BY dc.DT_ALTA ASC";
+                     AND dc.CD_PROTOCOLO || '_' || dc.CD_ATENDIMENTO NOT IN (SELECT CD_PROTOCOLO FROM conta_fat.CONTA WHERE TP_STATUS IN ('A','C'))";
+
+                     if($var_cd_unid_int <> '0' || $var_cd_unid_int <> 0){
+                         $cons_detalhe .= " AND dc.CD_UNID_INT = $var_cd_unid_int";
+                     }
+
+                     $cons_detalhe .= " ORDER BY dc.DT_ALTA ASC";
 
     $res_detalhe = oci_parse($conn_ora,$cons_detalhe);
 
     oci_execute($res_detalhe);
 
-    echo '<div class="bloco_painel">';
+    echo '<div id="bloco_4" class="bloco_painel">';
 
         echo '<div class="titulo_painel" >';
 

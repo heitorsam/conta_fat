@@ -37,7 +37,7 @@
 
     oci_execute($res_detalhe);
 
-    echo '<div class="bloco_painel">';
+    echo '<div id="bloco_3" class="bloco_painel">';
 
         echo '<div class="titulo_painel" >';
 

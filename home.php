@@ -211,6 +211,29 @@
             document.getElementById('carregando').style.display = 'none';
             document.getElementById('div_painel_geral').style.display = 'block';
 
+            var bloco_tamanho_max = 0;
+            var qtd_blocos = 6;
+
+            //DESCOBRE QUAL O MAIOR BLOCO
+            for (let i = 1; i <= qtd_blocos; i++) {
+
+                tamanho_bloco_for = document.getElementById('bloco_'+i).clientHeight;
+
+                if(tamanho_bloco_for > bloco_tamanho_max){
+
+                    bloco_tamanho_max = tamanho_bloco_for;
+
+                }
+
+            }
+
+            //DEFINE PARA TODOS OS BLOCOS O TAMANHO DO MAIOR BLOCO
+            for (let i = 1; i <= qtd_blocos; i++) {
+
+                document.getElementById('bloco_'+i).style.height = bloco_tamanho_max + "px";
+
+            }            
+
         });    
   
     }
