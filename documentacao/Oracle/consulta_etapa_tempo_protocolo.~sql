@@ -1,0 +1,3 @@
+SELECT itsm.* FROM dbamv.IT_SAME itsm;
+
+SELECT itsp.* FROM dbamv.IT_SAME_PROTOCOLOS itsp;

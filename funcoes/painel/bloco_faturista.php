@@ -78,7 +78,7 @@
         echo '</div>';
 
         echo '<div id="div_drop" ondrop="drop(event)" ondragover="allowDrop(event)"
-               style="min-width: 100%; min-height: 250px; background-color: rgba(1,1,1,0);">';
+               style="min-width: 100%; min-height: 100%; background-color: rgba(1,1,1,0);">';
 
             while($row_det = oci_fetch_array($res_detalhe)){
 
