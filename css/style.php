@@ -1450,4 +1450,71 @@ tbody{
 
 
 
+/*GALERIA*/
+
+.img_foto_pequena{
+
+width: 100%; 
+height: 160px; 
+object-fit:cover; 
+border-radius: 5px;
+cursor: pointer;
+
+}
+
+.img_foto_pequena:hover{
+
+height: 180px;
+cursor: pointer;
+
+}
+
+.modal-lg {
+max-width: 100% !important;
+}
+
+.modal-dialog{
+
+max-width: 90vw !important;
+max-height: 86vh !important;
+
+}
+
+.botoes_modal{
+
+font-size: 17px;
+color: #f6f6f6;
+margin-left: 10px;
+margin-right: 10px;
+text-decoration: none;
+cursor: pointer;
+
+text-shadow: 0.05em 0.05em 0.1em #3d3d3d;
+
+}
+
+.botoes_modal:hover{
+
+font-size: 17px;
+color: #70aedc;
+}
+
+.link_servicos:hover {
+cursor: pointer;
+}
+
+.img_servico_pequena{
+
+transition: transform .2s;
+cursor: pointer;
+
+}
+
+.img_servico_pequena:hover{
+
+opacity: 90%;
+cursor: pointer;
+
+}
+
 </style>

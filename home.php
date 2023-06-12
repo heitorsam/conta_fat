@@ -498,6 +498,8 @@
 
 </script>
 
+
+
 <?php
     //RODAPE
     include 'rodape.php';
